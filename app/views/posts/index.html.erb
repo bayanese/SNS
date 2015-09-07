@@ -1,0 +1,30 @@
+<h1> Social Network Service </h1>
+
+<p><%= link_to "[My Page]", user_path(current_user.id) %> <%= link_to "[User一覧]", users_path %><%= link_to "[グループ一覧]", groups_path %></p>
+
+<p><%= link_to "What's on your mind?", new_post_path %></p>
+
+<ul>
+   <% @posts.each do |post| %>
+   <li>
+   <%= post.title%><br>
+
+   <%= pluralize post.reputation_for(:likes).to_i, "like" %>
+   <%= link_to "[like]", like_post_path(post, type: "like"), method: "post" %>
+
+   <%= link_to "[Comment一覧]", post_path(post.id) %>
+
+   <% if current_user == post.user %>
+	   <%= link_to "[Edit]", edit_post_path(post.id) %>
+   <% end %>
+
+   <% if current_user == post.user %>
+	   <%= link_to "[Delete]", post_path(post.id), method: :delete, data: {confirm: "sure?" } %>
+   <% end %>
+
+   </li>
+    <% end %>
+</ul>
+
+
+<p><%= link_to "logout", destroy_user_session_path, method: :delete %></p>

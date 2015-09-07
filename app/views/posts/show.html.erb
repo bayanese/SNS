@@ -1,0 +1,26 @@
+<h1><%= @post.title %></h1>
+
+<ul>
+   <% @post.comments.each do |comment| %>
+   <li>
+   <%= comment.title %>
+
+   <%= pluralize comment.reputation_for(:likes).to_i, "like" %>
+   <%= link_to "[like]", like_post_comment_path(comment.post_id,comment.id, type: "like"), method: "post" %>
+
+   <% if current_user == comment.user %>
+	   <%= link_to "[Edit]", edit_post_comment_path(comment.post_id,comment.id) %>
+   <% end %>
+
+   <% if current_user == comment.user %>
+	   <%= link_to "[Delete]", post_comment_path(comment.post_id,comment.id), method: :delete, data: { confirm: 'sure?' } %>
+   <% end %>
+
+   <% end %>
+   </li>
+   <%= form_for [@post, @post.comments.build] do |f| %>
+   <%= f.text_field :title %>
+   <%= f.submit %>
+   <% end %>
+   </ul>
+   <p><%= link_to "[トップ画面]", posts_path %></p>

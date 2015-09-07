@@ -1,0 +1,32 @@
+<h1><%= @user.name %>のページ</h1>
+
+<p><%= link_to "[Group作成]" %><%= link_to "[所属するグループ一覧]", groups_path %></p>
+
+<% if current_user != @user.id %>
+<span id="user_<%= @user.id %>">
+<%= render 'follow_form', user: @user if signed_in? %>
+</span>
+<% end %>
+<%= render 'stats' %>
+
+<ul>
+  <% @user.posts.each do |post| %>
+  <li>
+  <%= post.title%><br>
+
+
+  <%= pluralize post.reputation_for(:likes).to_i, "like" %>
+  <%= link_to "[like]", like_post_path(post, type: "like"), method: "post" %>
+
+  <%= link_to "[Comment一覧]", post_path(post.id) %>
+
+  <%= link_to "[Edit]", edit_post_path(post.id) %>
+
+  <%= link_to "[Delete]", post_path(post.id), method: :delete, data: {confirm: "sure?" } %>
+
+
+   </li>
+   <% end %>
+</ul>
+
+<p><%= link_to "[トップ画面]", posts_path %></p>

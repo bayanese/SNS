@@ -1,1 +1,23 @@
-<h1><%= @group.title %>のページ</h1>
+<h1>グループ<%= @group.title %>のページ</h1>
+
+
+<ul>
+    <% @group.group_posts.each do |group_post| %>
+    <li>
+    <%= group_post.title%><br>
+
+    <%= link_to "[Comment一覧]", group_group_post_path(group_post.group_id,group_post.id) %>
+
+    <%= link_to "[Edit]", edit_group_group_post_path(group_post.group_id,group_post.id) %>
+
+    <%= link_to "[Delete]", group_group_post_path(group_post.group_id,group_post.id), method: :delete, data: { confirm: 'sure?' } %>
+
+    <% end %>
+
+    </li>
+       <%= form_for [@group, @group.group_posts.build] do |f| %>
+       <%= f.text_field :title %>
+       <%= f.submit %>
+       <% end %>
+</ul>
+

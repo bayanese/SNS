@@ -25,6 +25,11 @@ class GroupPostsController < ApplicationController
       redirect_to group_path(params[:group_id])
   end
 
+  def show
+      @group = Group.where(:id => params[:group_id]).first
+      @group_post = @group.group_posts.where(:id => params[:id]).first
+  end
+
   private
 
   def group_post_params

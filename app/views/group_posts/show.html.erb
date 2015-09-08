@@ -1,0 +1,17 @@
+<h1>投稿<% @group_post.title %></h1>
+
+<ul>
+   <% @group_post.group_comments.each do |group_comment| %>
+   <li>
+   <%= group_comment.title %>
+
+   <%= link_to "[Edit]", edit_group_post_group_comment_path(group_comment.group_post_id,group_comment.id) %>
+
+   <%= link_to "[Delete]", group_post_group_comment_path(group_comment.group_post_id,group_comment.id), method: :delete, data: { confirm: 'sure?' } %>
+
+    <% end %>
+
+     </li>
+</ul>
+
+

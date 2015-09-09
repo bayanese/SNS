@@ -1,0 +1,16 @@
+<h1>Editing Group Post Comment</h1>
+
+<%= form_for [@group,@group_post,@group_post_comment] do |f| %>
+
+    <p>
+    <%= f.label :title %><br>
+    <%= f.text_field :title %>
+    <% if @group_post_comment.errors.any? %>
+    <%= @group_post_comment.errors.messages[:title][0] %>
+    <% end %>
+    </p>
+
+    <p>
+    <%= f.submit %>
+    </p>
+<% end %>

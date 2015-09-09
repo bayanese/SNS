@@ -26,6 +26,13 @@ class GroupPostCommentsController < ApplicationController
       redirect_to group_post_path(params[:group_post_id])
   end
 
+  def like
+      value = params[:type] == "like" ? 1 : -1
+      @group_post = GroupPost.find(params[:id])
+      @group_post_comment.add_or_update_evaluation(:likes, value, current_user)
+      redirect_to :back
+  end
+
   private
 
   def group_post_comment_params

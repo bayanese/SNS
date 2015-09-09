@@ -8,9 +8,13 @@ Rails.application.routes.draw do
   devise_for :users
 
   resources :groups do
-	  resources :users
-	  resources :group_posts
+	  resources :group_posts do
+		  member { post :like }
+		  resources :group_comments
+     end
   end
+
+
   resources :users, :only => [:index, :show] do
             member do
                get :following, :followers
@@ -78,5 +82,5 @@ Rails.application.routes.draw do
   #     # Directs /admin/products/* to Admin::ProductsController
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
-  #   end
+	#     end 
 end

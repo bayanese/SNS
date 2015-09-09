@@ -20,10 +20,13 @@
 
   <%= link_to "[Comment一覧]", post_path(post.id) %>
 
-  <%= link_to "[Edit]", edit_post_path(post.id) %>
+   <% if current_user == post.user %>
+	   <%= link_to "[Edit]", edit_post_path(post.id) %>
+   <% end %>
 
+    <% if current_user == post.user %>
   <%= link_to "[Delete]", post_path(post.id), method: :delete, data: {confirm: "sure?" } %>
-
+  <% end %>
 
    </li>
    <% end %>
